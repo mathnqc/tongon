@@ -59,6 +59,8 @@
 <p id="message"></p>
 
 <input type="text" id="username" placeholder="Username">
+<!-- Thêm trường nhập mật khẩu mới -->
+<input type="password" id="password" placeholder="Password">
 <button onclick="login()">Login</button>
 
 <!-- đăng nhập-->
@@ -2403,7 +2405,7 @@
 </div>
 
 
-<!--Đăng nhập-->
+<!--Đăng nhập
 <script>// List of usernames
 var usernames = ["ledinhanh", "hau", "user3"];
 
@@ -2424,9 +2426,41 @@ function login(){
 	document.getElementById('full-content').style.display = "none";
   }
 }</script>
-
+-->
 <!--Đăng nhập-->
+<script>
+// Danh sách usernames và mật khẩu
+var userAccounts = {
+  "ledinhanh": "anh1234",
+  "user3": "pass3"
+};
 
+// Try to auto login
+var savedUsername = localStorage.getItem('username');
+var savedPassword = localStorage.getItem('password');
+
+if(savedUsername && savedPassword && savedPassword === userAccounts[savedUsername]){
+  document.getElementById('message').innerHTML = "Welcome " + savedUsername;
+  document.getElementById('full-content').style.display = "block";
+} else {
+  // Xử lý trường hợp không tự động đăng nhập được ở đây
+}
+
+function login(){
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+  
+  if(username in userAccounts && password === userAccounts[username]){
+    localStorage.setItem('username', username);
+    localStorage.setItem('password', password);
+    document.getElementById('message').innerHTML = "Welcome " + username;
+    document.getElementById('full-content').style.display = "block";
+  } else{
+    document.getElementById('message').innerHTML = "Invalid username or password";
+    document.getElementById('full-content').style.display = "none";
+  }
+}
+</script>
 <script>
     $(function () {
 
